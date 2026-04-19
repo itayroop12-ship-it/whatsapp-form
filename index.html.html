@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>WhatsApp Business - טופס פרטים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Heebo',-apple-system,system-ui,sans-serif;
+  background:linear-gradient(135deg,#075E54 0%,#128C7E 50%,#25D366 100%);
+  background-attachment:fixed;
+  min-height:100vh;
+  color:#1a1a1a;
+  line-height:1.6;
+  padding:16px;
+  padding-bottom:40px;
+}
+.container{max-width:520px;margin:0 auto}
+
+.header{
+  background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+  border-radius:24px;
+  padding:32px 24px;
+  text-align:center;
+  color:white;
+  box-shadow:0 10px 40px rgba(0,0,0,.2);
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+}
+.header::before{
+  content:'';
+  position:absolute;
+  top:-50%;
+  right:-50%;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 70%);
+  pointer-events:none;
+}
+.wa-icon{
+  font-size:48px;
+  margin-bottom:12px;
+  display:inline-block;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.25));
+}
+.header h1{font-size:24px;font-weight:800;margin-bottom:8px;position:relative}
+.header p{font-size:15px;opacity:.95;font-weight:400;position:relative}
+
+.progress-bar{
+  background:rgba(255,255,255,.15);
+  height:6px;
+  border-radius:10px;
+  margin-top:16px;
+  overflow:hidden;
+  backdrop-filter:blur(10px);
+  position:relative;
+}
+.progress-fill{
+  height:100%;
+  background:white;
+  width:0%;
+  transition:width .4s ease;
+  border-radius:10px;
+}
+.progress-text{
+  font-size:12px;
+  margin-top:8px;
+  opacity:.9;
+  position:relative;
+}
+
+.intro{
+  background:white;
+  border-radius:20px;
+  padding:20px 22px;
+  margin-bottom:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  border-right:4px solid #25D366;
+}
+.intro p{font-size:15px;color:#333;font-weight:400}
+.intro strong{color:#075E54;font-weight:700}
+
+.section{
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:16px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.section-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:2px dashed #E8F5E9;
+}
+.section-icon{
+  width:42px;
+  height:42px;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  box-shadow:0 4px 12px rgba(37,211,102,.3);
+  flex-shrink:0;
+}
+.section-title{font-size:18px;font-weight:700;color:#075E54}
+
+.field-group{margin-bottom:16px}
+.field-group:last-child{margin-bottom:0}
+.field-label{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  color:#1a1a1a;
+  margin-bottom:6px;
+}
+.required{color:#E53935;margin-right:3px}
+.field-hint{
+  font-size:12px;
+  color:#888;
+  font-weight:400;
+  display:block;
+  margin-top:3px;
+}
+
+input[type="text"],input[type="tel"],input[type="email"],input[type="url"],textarea,select{
+  width:100%;
+  padding:12px 14px;
+  border:2px solid #E0E0E0;
+  border-radius:12px;
+  font-size:15px;
+  font-family:inherit;
+  background:#F9F9F9;
+  transition:all .2s;
+  color:#1a1a1a;
+  text-align:right;
+  direction:rtl;
+}
+input:focus,textarea:focus,select:focus{
+  outline:none;
+  border-color:#25D366;
+  background:white;
+  box-shadow:0 0 0 4px rgba(37,211,102,.1);
+}
+textarea{resize:vertical;min-height:80px}
+
+.radio-group,.checkbox-group{display:flex;flex-direction:column;gap:8px}
+.option{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  background:#F5F9F6;
+  border:2px solid transparent;
+  border-radius:12px;
+  cursor:pointer;
+  transition:all .2s;
+  font-size:14px;
+  color:#333;
+  font-weight:500;
+}
+.option:hover{background:#E8F5E9}
+.option input{
+  margin:0;
+  accent-color:#25D366;
+  width:18px;
+  height:18px;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.option input:checked + span{color:#075E54;font-weight:600}
+.option:has(input:checked){
+  background:#E8F5E9;
+  border-color:#25D366;
+}
+
+.warning{
+  background:linear-gradient(135deg,#FFF3E0 0%,#FFE0B2 100%);
+  border-right:4px solid #FB8C00;
+  border-radius:12px;
+  padding:14px 16px;
+  margin-top:12px;
+  font-size:13px;
+  color:#5D4037;
+  font-weight:500;
+  line-height:1.5;
+}
+.warning strong{color:#E65100}
+.warning::before{content:'⚠️ ';font-size:15px}
+
+.tip{
+  background:linear-gradient(135deg,#E3F2FD 0%,#BBDEFB 100%);
+  border-right:4px solid #1976D2;
+  border-radius:12px;
+  padding:14px 16px;
+  margin-top:12px;
+  font-size:13px;
+  color:#0D47A1;
+  font-weight:500;
+}
+.tip::before{content:'💡 ';font-size:15px}
+
+.upload-box{
+  background:linear-gradient(135deg,#F1F8E9 0%,#DCEDC8 100%);
+  border:2px dashed #8BC34A;
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  margin:10px 0;
+}
+.upload-box h4{
+  color:#33691E;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.upload-box p{
+  font-size:13px;
+  color:#558B2F;
+  font-weight:500;
+  line-height:1.5;
+}
+
+.submit-section{
+  background:white;
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:16px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  text-align:center;
+}
+.submit-section h3{
+  font-size:18px;
+  font-weight:700;
+  color:#075E54;
+  margin-bottom:8px;
+}
+.submit-section p{font-size:14px;color:#666;margin-bottom:18px}
+
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:700;
+  font-family:inherit;
+  cursor:pointer;
+  transition:all .2s;
+  margin:8px 0;
+}
+.btn-primary{
+  background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+  color:white;
+  box-shadow:0 4px 16px rgba(37,211,102,.4);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,211,102,.5)}
+.btn-primary:active{transform:translateY(0)}
+.btn-secondary{
+  background:#F5F5F5;
+  color:#333;
+  border:2px solid #E0E0E0;
+}
+.btn-secondary:hover{background:#EEEEEE}
+
+.success-modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(0,0,0,.7);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(4px);
+}
+.success-modal.show{display:flex;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-content{
+  background:white;
+  border-radius:24px;
+  padding:32px 24px;
+  max-width:450px;
+  width:100%;
+  text-align:center;
+  animation:slideUp .3s;
+}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-content .success-icon{
+  font-size:56px;
+  margin-bottom:12px;
+}
+.modal-content h2{
+  font-size:22px;
+  color:#075E54;
+  margin-bottom:10px;
+  font-weight:800;
+}
+.modal-content p{
+  font-size:14px;
+  color:#666;
+  margin-bottom:20px;
+}
+
+.footer-note{
+  text-align:center;
+  color:rgba(255,255,255,.85);
+  font-size:13px;
+  margin-top:20px;
+  padding:16px;
+  font-weight:500;
+}
+
+@media(max-width:380px){
+  body{padding:10px}
+  .header h1{font-size:21px}
+  .section{padding:18px}
+  .section-title{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="wa-icon">💬</div>
+  <h1>WhatsApp Business API</h1>
+  <p>טופס פרטים להקמת החשבון</p>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div class="progress-text"><span id="progressText">0%</span> הושלם</div>
+</div>
+
+<div class="intro">
+  <p>
+    היי! 👋<br>
+    מלא/י את הטופס - זה לוקח כ-<strong>3 דקות</strong>.<br>
+    בסוף לחץ/י על "שלח בוואטסאפ" - כל הפרטים יגיעו אליי באופן מסודר ומתחיל מיד. 🚀
+  </p>
+</div>
+
+<form id="bizForm" onsubmit="return submitForm(event)">
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">📄</div>
+    <div class="section-title">פרטי העסק</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>שם העסק המלא</label>
+    <input type="text" name="businessName" required placeholder="כמו שמופיע בתעודה">
+    <span class="field-hint">בדיוק כמו בתעודת העסק</span>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>סוג העסק</label>
+    <select name="businessType" required>
+      <option value="">בחר/י...</option>
+      <option value="עוסק מורשה">עוסק מורשה</option>
+      <option value="עוסק פטור">עוסק פטור</option>
+      <option value="חברה בע״מ">חברה בע״מ</option>
+    </select>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>מספר עוסק / ח.פ</label>
+    <input type="text" name="businessId" required inputmode="numeric" placeholder="9 ספרות">
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>כתובת העסק</label>
+    <input type="text" name="businessAddress" required placeholder="רחוב, מספר, עיר, מיקוד">
+    <span class="field-hint">כתובת בית זה בסדר - אין צורך במשרד</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">👤</div>
+    <div class="section-title">פרטי בעל העסק</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>שם מלא</label>
+    <input type="text" name="ownerName" required placeholder="שם פרטי ומשפחה">
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>אימייל</label>
+    <input type="email" name="email" required placeholder="example@email.com" dir="ltr">
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>טלפון ליצירת קשר</label>
+    <input type="tel" name="phone" required placeholder="05X-XXX-XXXX" dir="ltr">
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">📱</div>
+    <div class="section-title">מספר וואטסאפ ביזנס</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label">מספר קיים לוואטסאפ (אופציונלי)</label>
+    <input type="tel" name="waNumber" placeholder="05X-XXX-XXXX" dir="ltr">
+    <span class="field-hint">אם יש לך מספר נקי שתרצה להשתמש בו. אם לא - אדאג לרכוש בשבילך מספר חדש</span>
+  </div>
+
+  <div class="tip">
+    אין צורך לקנות מספר חדש - אני דואג לזה בשבילך ומכניס בתהליך.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">🏷️</div>
+    <div class="section-title">שם תצוגה בוואטסאפ</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>איך השם יופיע ללקוחות</label>
+    <input type="text" name="displayName" required placeholder="לדוגמה: Summer Parties TLV">
+    <span class="field-hint">חייב להיות זהה לשם באינסטגרם / באתר</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">🌐</div>
+    <div class="section-title">נוכחות דיגיטלית</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label">אתר / דף מכירה</label>
+    <input type="url" name="website" placeholder="https://..." dir="ltr">
+    <span class="field-hint">חייב להיות HTTPS ולעלות</span>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label">אינסטגרם</label>
+    <input type="url" name="instagram" placeholder="https://instagram.com/..." dir="ltr">
+  </div>
+
+  <div class="field-group">
+    <label class="field-label">פייסבוק Page</label>
+    <input type="url" name="facebook" placeholder="https://facebook.com/..." dir="ltr">
+    <span class="field-hint">דף עסקי - לא פרופיל אישי</span>
+  </div>
+
+  <div class="tip">
+    חובה לפחות אחד מהשלושה. אתר מעלה משמעותית את אחוזי האישור.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">🎨</div>
+    <div class="section-title">פרופיל הוואטסאפ</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>תיאור קצר של העסק</label>
+    <textarea name="description" required maxlength="139" placeholder="לדוגמה: מסיבות הקיץ הכי שוות בתל אביב 🎉 כרטיסים והזמנות כאן"></textarea>
+    <span class="field-hint">עד 139 תווים</span>
+  </div>
+
+  <div class="upload-box">
+    <h4>🖼️ תמונת לוגו</h4>
+    <p>שלח/י את הלוגו <strong>בנפרד בוואטסאפ</strong> אחרי שליחת הטופס</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">📎</div>
+    <div class="section-title">מסמכים</div>
+  </div>
+
+  <div class="upload-box">
+    <h4>📄 מסמך 1 - תעודת עסק</h4>
+    <p>תעודת עוסק מורשה / פטור / התאגדות<br>
+    <strong>שלח/י תמונה או PDF בוואטסאפ</strong></p>
+  </div>
+
+  <div class="upload-box">
+    <h4>🏠 מסמך 2 - הוכחת כתובת</h4>
+    <p>חשבון חשמל / מים / ארנונה / דף בנק<br>
+    <strong>עד 3 חודשים אחורה</strong></p>
+  </div>
+
+  <div class="warning">
+    שם העסק והכתובת חייבים להיות <strong>זהים לחלוטין</strong> בכל המסמכים.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">💳</div>
+    <div class="section-title">אמצעי תשלום</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label"><span class="required">*</span>יש כרטיס אשראי לחיוב Meta?</label>
+    <div class="radio-group">
+      <label class="option">
+        <input type="radio" name="creditCard" value="כן" required>
+        <span>כן, יש לי כרטיס אשראי מוכן</span>
+      </label>
+      <label class="option">
+        <input type="radio" name="creditCard" value="לא">
+        <span>עוד אין, אסדר בהמשך</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">📨</div>
+    <div class="section-title">סוג ההודעות שתשלח</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label">סמן/י הכל מה שרלוונטי</label>
+    <div class="checkbox-group">
+      <label class="option">
+        <input type="checkbox" name="messageTypes" value="עדכונים על אירועים חדשים">
+        <span>עדכונים על אירועים חדשים</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="messageTypes" value="אישורי רכישת כרטיס">
+        <span>אישורי רכישת כרטיס</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="messageTypes" value="תזכורות לפני אירוע">
+        <span>תזכורות לפני אירוע</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="messageTypes" value="מבצעים ושיווק">
+        <span>מבצעים ושיווק</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="messageTypes" value="שירות לקוחות ותמיכה">
+        <span>שירות לקוחות ותמיכה</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">✅</div>
+    <div class="section-title">איסוף אישורים</div>
+  </div>
+
+  <div class="field-group">
+    <label class="field-label">איך תאסוף אישור מלקוחות לשלוח להם הודעות?</label>
+    <div class="checkbox-group">
+      <label class="option">
+        <input type="checkbox" name="optinMethod" value="טופס באתר / דף נחיתה">
+        <span>טופס באתר / דף נחיתה</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="optinMethod" value="תהליך רכישת כרטיס">
+        <span>תהליך רכישת כרטיס</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="optinMethod" value="SMS">
+        <span>SMS</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="optinMethod" value="הלקוח יוזם שיחה ראשון">
+        <span>הלקוח יוזם שיחה ראשון</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" name="optinMethod" value="אין לי עדיין - נבנה יחד">
+        <span>אין לי עדיין - נבנה יחד</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="submit-section">
+  <h3>🚀 מוכן לשלוח?</h3>
+  <p>לחיצה תפתח וואטסאפ עם כל הפרטים מוכנים לשליחה</p>
+  <button type="submit" class="btn btn-primary">
+    <span>📤 שלח בוואטסאפ</span>
+  </button>
+  <button type="button" class="btn btn-secondary" onclick="copyToClipboard()">
+    <span>📋 העתק פרטים</span>
+  </button>
+</div>
+
+</form>
+
+</div>
+
+<div class="success-modal" id="successModal">
+  <div class="modal-content">
+    <div class="success-icon">✅</div>
+    <h2>הפרטים הועתקו!</h2>
+    <p>אפשר עכשיו להדביק בוואטסאפ או בכל מקום אחר</p>
+    <button class="btn btn-primary" onclick="closeModal()">סגור</button>
+  </div>
+</div>
+
+<script>
+// !!! חשוב !!! החלף/י את המספר הזה במספר הוואטסאפ שלך
+const MY_WHATSAPP_NUMBER = '972509319219';
+
+// מעקב התקדמות
+const form = document.getElementById('bizForm');
+const progressBar = document.getElementById('progress');
+const progressText = document.getElementById('progressText');
+
+function updateProgress(){
+  const requiredFields = form.querySelectorAll('[required]');
+  let filled = 0;
+  requiredFields.forEach(f => {
+    if(f.type === 'radio'){
+      const group = form.querySelectorAll(`[name="${f.name}"]`);
+      if(Array.from(group).some(r => r.checked)) filled++;
+    } else if(f.value.trim()) {
+      filled++;
+    }
+  });
+  const uniqueRequired = new Set();
+  requiredFields.forEach(f => uniqueRequired.add(f.name));
+  const percent = Math.round((filled / uniqueRequired.size) * 100);
+  const capped = Math.min(percent, 100);
+  progressBar.style.width = capped + '%';
+  progressText.textContent = capped + '%';
+}
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
+
+function buildMessage(){
+  const data = new FormData(form);
+  const msgTypes = data.getAll('messageTypes').join(', ') || 'לא נבחר';
+  const optinTypes = data.getAll('optinMethod').join(', ') || 'לא נבחר';
+
+  const message = `🚀 *פרטים להקמת WhatsApp Business*
+
+📄 *פרטי העסק*
+שם: ${data.get('businessName')}
+סוג: ${data.get('businessType')}
+ח.פ/עוסק: ${data.get('businessId')}
+כתובת: ${data.get('businessAddress')}
+
+👤 *בעל העסק*
+שם: ${data.get('ownerName')}
+אימייל: ${data.get('email')}
+טלפון: ${data.get('phone')}
+
+📱 *וואטסאפ ביזנס*
+מספר: ${data.get('waNumber') || 'לרכוש מספר חדש'}
+שם תצוגה: ${data.get('displayName')}
+
+🌐 *נוכחות דיגיטלית*
+אתר: ${data.get('website') || '-'}
+אינסטגרם: ${data.get('instagram') || '-'}
+פייסבוק: ${data.get('facebook') || '-'}
+
+🎨 *פרופיל*
+תיאור: ${data.get('description')}
+
+💳 *תשלום*
+כרטיס אשראי: ${data.get('creditCard')}
+
+📨 *סוג הודעות*
+${msgTypes}
+
+✅ *איסוף אישורים*
+${optinTypes}
+
+---
+📎 אשלח/ה בהודעה נפרדת:
+- לוגו / תמונת פרופיל
+- תעודת עסק
+- הוכחת כתובת`;
+
+  return message;
+}
+
+function submitForm(e){
+  e.preventDefault();
+  const message = buildMessage();
+  const url = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+  return false;
+}
+
+function copyToClipboard(){
+  // בדוק תקינות שדות חובה
+  const requiredFields = form.querySelectorAll('[required]');
+  let allFilled = true;
+  requiredFields.forEach(f => {
+    if(f.type === 'radio'){
+      const group = form.querySelectorAll(`[name="${f.name}"]`);
+      if(!Array.from(group).some(r => r.checked)) allFilled = false;
+    } else if(!f.value.trim()){
+      allFilled = false;
+      f.style.borderColor = '#E53935';
+    }
+  });
+  if(!allFilled){
+    alert('אנא מלא/י את כל השדות המסומנים בכוכבית *');
+    return;
+  }
+
+  const message = buildMessage();
+  navigator.clipboard.writeText(message).then(() => {
+    document.getElementById('successModal').classList.add('show');
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = message;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    document.getElementById('successModal').classList.add('show');
+  });
+}
+
+function closeModal(){
+  document.getElementById('successModal').classList.remove('show');
+}
+
+// איפוס גבולות אדומים בעת הקלדה
+form.addEventListener('input', e => {
+  if(e.target.style.borderColor === 'rgb(229, 57, 53)'){
+    e.target.style.borderColor = '';
+  }
+});
+</script>
+</body>
+</html>
